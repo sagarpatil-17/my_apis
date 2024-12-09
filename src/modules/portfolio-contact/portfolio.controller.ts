@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { PortfolioService } from "./portfolio.service";
 import { PortfolioEmailDto } from "./dto/portfolio.dto";
