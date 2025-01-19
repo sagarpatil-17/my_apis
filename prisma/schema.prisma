@@ -20,3 +20,10 @@ model portfolio_contact {
   user_email String
   user_name  String
 }
+
+model my_proposal {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  hers_name String
+  response  String
+  reason    String?
+}
