@@ -22,8 +22,22 @@ model portfolio_contact {
 }
 
 model my_proposal {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   hers_name String
   response  String
   reason    String?
+}
+
+model pickup_lines {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  content    Json
+  createdAt  DateTime @default(now())
+}
+
+model pickup_line_response {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  pickup_line Json
+  response    String
+  createdAt   DateTime @default(now())
+  created_by  String
 }

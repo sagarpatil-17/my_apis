@@ -1,10 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { ProposalDto } from "./dto/proposal.dto";
 import { MailerService } from "@nestjs-modules/mailer";
+import { PrismaService } from "src/prisma.service.ts/prisma.service";
+import { PickupLineDto, PickupLineRepDto } from "./dto/pickupLine.dto";
 
 @Injectable()
 export class ProposalService {
-    constructor(private readonly mail: MailerService) { }
+    constructor(private readonly mail: MailerService, private prisma: PrismaService) { }
 
     async getResponse(dto: ProposalDto) {
         const yesTemp = `
@@ -34,5 +36,27 @@ export class ProposalService {
         }
 
         return { message: 'Response sent successfully!' }
+    }
+
+    async getPickupLine() {
+        return await this.prisma.pickup_lines.findFirst();
+    }
+
+    async addPickupLine(dto: PickupLineDto) {
+        await this.prisma.pickup_lines.create({
+            data: { content: dto.content }
+        })
+        return { msg: 'success!' }
+    }
+
+    async pickupLineResponse(dto: PickupLineRepDto) {
+        await this.prisma.pickup_line_response.create({
+            data: {
+                pickup_line: dto.pickup_line,
+                response: dto.response,
+                created_by: dto.created_by
+            }
+        })
+        return { msg: 'success!' }
     }
 }
