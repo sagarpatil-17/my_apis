@@ -39,7 +39,9 @@ export class ProposalService {
     }
 
     async getPickupLine() {
-        return await this.prisma.pickup_lines.findFirst();
+        return await this.prisma.pickup_lines.findFirst({
+            orderBy: { createdAt: 'desc' }
+        });
     }
 
     async addPickupLine(dto: PickupLineDto) {
